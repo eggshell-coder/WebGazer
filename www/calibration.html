@@ -28,7 +28,7 @@ Instructions on use can be found in the README repository.
         <script src="./js/precision_calculation.js"></script>
         <script src="./js/precision_store_points.js"></script>
 
-        <nav id="webgazerNavbar" class="navbar navbar-default navbar-fixed-top">
+        <!-- <nav id="webgazerNavbar" class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
             <div class="navbar-header">
               <!-- The hamburger menu button -->
@@ -49,7 +49,7 @@ Instructions on use can be found in the README repository.
               </ul>
             </div>
           </div>
-        </nav>
+        </nav> -->
         <!-- Calibration points -->
         <div class="calibrationDiv">
             <input type="button" class="Calibration" id="Pt1"></input>
@@ -84,6 +84,58 @@ Instructions on use can be found in the README repository.
         <!-- Latest compiled JavaScript -->
         <script src="./js/resize_canvas.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <style>
+          :root {
+            --grid-cols: 1;
+            --grid-rows: 1;
+          }
+          
+          #container {
+            display: grid;
+            grid-gap: 1em;
+            grid-template-rows: repeat(var(--grid-rows), 1fr);
+            grid-template-columns: repeat(var(--grid-cols), 1fr);
+          }
+          
+          .grid-item {
+            padding: 1em;
+            border: 1px solid #ddd;
+            text-align: center;
+          }
+          </style>
+          <div id="container">
+          </div>
+          <script>
+          const container = document.getElementById("container");
+          
+          function makeRows(rows, cols) {
+            container.style.setProperty('--grid-rows', rows);
+            container.style.setProperty('--grid-cols', cols);
+            for (c = 0; c < (rows * cols); c++) {
+              let cell = document.createElement("div");
+              cell.innerText = (c + 1);
+              cell.style.background = "white";
+              container.appendChild(cell).className = "grid-item";
+            };
+          };
+          
+          function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+          }
+          function randomSelect(container){
+            var prevIndex = getRandomInt(144);
+            setInterval(() => {
+              var nextIndex = getRandomInt(144);
+              container.children[prevIndex].style.background = "white";
+              container.children[nextIndex].style.background = "red";
+              prevIndex = nextIndex;
+            }, 5000);
+          }
+          
+          makeRows(12, 12);
+          randomSelect(container);
+          </script>
 
     </body>
 </html>
