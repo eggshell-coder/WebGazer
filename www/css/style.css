@@ -55,6 +55,7 @@ li {
 
 /* Calibration button styling */
 .Calibration{
+    /*background-image: url("website.jpg");
     width: 20px;
     height: 20px;
     -webkit-border-radius: 25px;
@@ -63,16 +64,22 @@ li {
     background-color: red;
     opacity: 0.2;
     border-color: black;
-    border-style: solid;
+    border-style: solid;*/
+    height: 100%;
+    width: 100%;
+    filter:blur(10px);
     position:fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-/* Calibration point position */
-#Pt1{
-    top: 70px;
-    left:340px;
-}
-#Pt2{
+/* Calibration point position 
+#imageId{
+    height: 100%;
+   
+ }
+/* #Pt2{
     top: 70px;
     left:50vw;
     margin-left: 340;
@@ -104,4 +111,4 @@ li {
 #Pt9{
     bottom:2vw;
     right:2vw;
-}
+} */ */
