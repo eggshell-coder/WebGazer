@@ -1,11 +1,11 @@
 var PointCalibrate = 0;
 var CalibrationPoints={};
-var imgUrl = "website.jpg"
+var imgUrl = "https://raw.githubusercontent.com/namwkim/bubbleview/master/img/sample3.jpg";
 /**
  * Clear the canvas and the calibration button.
  */
 function ClearCanvas(){
-  //$(".Calibration").hide();
+  $(".pic").hide();
   var canvas = document.getElementById("plotting_canvas");
   canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -42,46 +42,21 @@ function helpModalShow() {
 $(document).ready(function(){
   ClearCanvas();
   helpModalShow();
-     $(".Calibration").click(function(event){ // click event on the calibration buttons
-
+  
+     $(".pic").mousemove(function(){ // click event on the calibration buttons
       var canvas = document.getElementById("plotting_canvas");
-      //var id = $(this).attr('id');
-      var img = document.getElementById("pic");
-      var rect = canvas.getBoundingClientRect();
-      x = event.clientX - rect.left;
-      y = event.clientY - rect.top;
-      var ctx = document.getElementById("plotting_canvas").getContext("2d");
-      ctx.strokeStyle = "#ff2626"; // <-- set fill color
-      //ctx.filter = 'blur(0px)';
-      ctx.beginPath();
-      ctx.arc(x, y, 30, 0, 2*Math.PI,true);
+      var context = canvas.getContext("2d");
       
-      ctx.stroke();
+      event.preventDefault();
+      var upX = event.clientX;
+      var upY = event.clientY;
+      var mask = $('#mask1 circle')[0];
+      mask.setAttribute("cy", (upY-150) + 'px');
+      mask.setAttribute("cx", (upX) + 'px');
+      // $(this).prop('disabled', true); //disables the button
+      PointCalibrate++;
 
-      //if (!CalibrationPoints[id]){ // initialises if not done
-        //CalibrationPoints[id]=0;
-      //}
-      //CalibrationPoints[id]++; // increments values
-
-     // if (CalibrationPoints[id]==1){ //only turn to yellow after 5 clicks
-        //$(this).css('filter','0px');
-        $(this).prop('disabled', true); //disables the button
-        PointCalibrate++;
-      //}else if (CalibrationPoints[id]<5){
-        //Gradually increase the opacity of calibration points when click to give some indication to user.
-       // var opacity = 0.2*CalibrationPoints[id]+0.2;
-       // $(this).css('opacity',opacity);
-     // }
-
-      //Show the middle calibration point after all other points have been clicked.
-      //if (PointCalibrate == 8){
-        //$("#Pt5").show();
-      //}
-
-      if (PointCalibrate >= 9){ // last point is calibrated
-            //using jquery to grab every element in Calibration class and hide them except the middle point.
-            //$(".Calibration").hide();
-            //$("#Pt5").show();
+      if (PointCalibrate == 100){ // last point is calibrated
 
             // clears the canvas
             var canvas = document.getElementById("plotting_canvas");
@@ -102,8 +77,9 @@ $(document).ready(function(){
                   store_points_variable(); // start storing the prediction points
 
                   sleep(5000).then(() => {
+                      
                       stop_storing_points_variable(); // stop storing the prediction points
-                      var past50 = get_points() // retrieve the stored points
+                      var past50 = get_points(); // retrieve the stored points
                       var precision_measurement = calculatePrecision(past50);
                       var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
                       document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
@@ -118,6 +94,7 @@ $(document).ready(function(){
                           if (isConfirm){
                             //clear the calibration & hide the last middle button
                             ClearCanvas();
+                            
                           } else {
                             //use restart function to restart the calibration
                             ClearCalibration();
@@ -138,8 +115,17 @@ $(document).ready(function(){
 
 
 function ShowCalibrationPicture() {
-  $(".Calibration").show();
   
+  var canvas = document.getElementById("plotting_canvas");
+  var ctx = canvas.getContext("2d");
+  $(".pic").css({"width":"558px", "height":"733px"});
+  $(".pic").show();
+  // ctx.filter = "blur(10px)";
+  // var img = new Image();
+  // img.onload = function(){
+  //   ctx.drawImage(img,0,0, canvas.width, canvas.height);
+  // };
+  // img.src = 'https://raw.githubusercontent.com/namwkim/bubbleview/master/img/sample3.jpg';
   //$("#Pt5").hide(); // initially hides the middle button
 }
 
@@ -148,9 +134,9 @@ function ShowCalibrationPicture() {
 */
 function ClearCalibration(){
   window.localStorage.clear();
-  $(".Calibration").css('filter','10px');
+  // $(".Calibration").css('filter','10px');
   //$(".Calibration").css('opacity',0.2);
-  $(".Calibration").prop('disabled',false);
+  // $(".Calibration").prop('disabled',false);
 
   CalibrationPoints = {};
   PointCalibrate = 0;

@@ -111,4 +111,18 @@ li {
 #Pt9{
     bottom:2vw;
     right:2vw;
-} */ */
+} */ 
+.pic {
+    text-align: center;
+    position: fixed;
+    height:600px;
+}
+.blur {
+    height: 100%;
+}
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+}
