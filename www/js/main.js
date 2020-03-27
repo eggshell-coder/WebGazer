@@ -4,8 +4,8 @@ window.onload = function() {
     webgazer.setRegression('ridge') /* currently must set regression and tracker */
         .setTracker('clmtrackr')
         .setGazeListener(function(data, clock) {
-          //   console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
-          //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+            console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+            console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
         })
         .begin()
         .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
@@ -42,5 +42,16 @@ window.onbeforeunload = function() {
 function Restart(){
     document.getElementById("Accuracy").innerHTML = "<a>Not yet Calibrated</a>";
     ClearCalibration();
-    PopUpInstruction();
+    $("#calibrate").click(function(){
+        $(this).fadeOut();
+        var video = document.getElementById('webgazerVideoCanvas');
+        video.style.display = 'none';
+        var video = document.getElementById('webgazerVideoFeed');
+        video.style.display = 'none';
+        var video = document.getElementById('webgazerFaceOverlay');
+        video.style.display = 'none';
+        var video = document.getElementById('webgazerFaceFeedbackBox');
+        video.style.display = 'none';
+        PopUpInstruction();
+    });
 }

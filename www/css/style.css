@@ -120,3 +120,13 @@ li {
     bottom:2vw;
     right:2vw;
 } */ 
+.wrapper {
+    text-align: center;
+    
+}
+
+#calibrate {
+    
+    position: absolute;
+    top: 50%;
+}
