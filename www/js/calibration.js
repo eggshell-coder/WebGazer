@@ -78,7 +78,7 @@ $(document).ready(function(){
         
         PointCalibrate++;
 
-        if (PointCalibrate == 10){ // last point is calibrated
+        if (PointCalibrate == 200){ // last point is calibrated
             
               // notification for the measurement process
               swal({
